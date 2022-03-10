@@ -6,6 +6,7 @@ import it.prova.myebay.dao.annuncio.AnnuncioDAO;
 import it.prova.myebay.dao.categoria.CategoriaDAO;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
+import it.prova.myebay.model.Utente;
 
 public interface AnnuncioService {
 	
@@ -24,6 +25,8 @@ public interface AnnuncioService {
 	public void disassociaDaCategoriaEsistente(Categoria categoriaInstance, Annuncio annuncioInstance) throws Exception;
 	
 	public Annuncio caricaAnnuncioSingoloConCategorie(Long id) throws Exception;
+	
+	public List<Annuncio> findByExample(Annuncio example) throws Exception;
 
 	// per injection
 	public void setAnnuncioDAO(AnnuncioDAO annuncioDAO);

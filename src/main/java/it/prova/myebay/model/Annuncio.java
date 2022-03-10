@@ -46,7 +46,11 @@ public class Annuncio {
 
 	public Annuncio() {
 	}
-
+	
+	public Annuncio(String testoAnnuncio, Integer prezzo) {
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+	}
 
 	public Annuncio(Long id, String testoAnnuncio, Integer prezzo, Date dataPubblicazione, Boolean aperto,
 			Utente utenteInserimento, Set<Categoria> categorie) {

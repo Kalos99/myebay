@@ -125,10 +125,8 @@ public class UtenteDAOImpl implements UtenteDAO {
 			paramaterMap.put("dateCreated", example.getDateCreated());
 		}
 		if (example.getRuoli().size() != 0) {
-			for(Ruolo ruoloItem : example.getRuoli()) {
-				whereClauses.add(" :idRuolo IN ()  ");
-				paramaterMap.put("idRuolo", ruoloItem.getId());
-			}
+			whereClauses.add(" u.ruoli IN :ruoli  ");
+			paramaterMap.put("ruoli",example.getRuoli());
 		}
 		
 		queryBuilder.append(!whereClauses.isEmpty()? " and " : "");
