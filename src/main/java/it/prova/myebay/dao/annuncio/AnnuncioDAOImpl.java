@@ -76,7 +76,7 @@ public class AnnuncioDAOImpl implements AnnuncioDAO {
 	public Annuncio findByIdFetchingCategorie(Long id) throws Exception {
 		TypedQuery<Annuncio> query = entityManager
 				.createQuery("select a FROM Annuncio a left join fetch a.categorie c where a.id = :idAnnuncio", Annuncio.class);
-		query.setParameter("idArticolo", id);
+		query.setParameter("idAnnuncio", id);
 		return query.getResultList().stream().findFirst().orElse(null);
 	}
 
@@ -119,6 +119,14 @@ public class AnnuncioDAOImpl implements AnnuncioDAO {
 		System.out.println(typedQuery);
 
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	public Annuncio findByIdFetchingCategorieAndCreatore(Long id) throws Exception {
+		TypedQuery<Annuncio> query = entityManager
+				.createQuery("select a FROM Annuncio a left join fetch a.categorie c left join fetch a.utenteInserimento u where a.id = :idAnnuncio", Annuncio.class);
+		query.setParameter("idAnnuncio", id);
+		return query.getResultList().stream().findFirst().orElse(null);
 	}
 
 }

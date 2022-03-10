@@ -88,7 +88,7 @@ public class MyServiceFactory {
 		return CATEGORIA_SERVICE_INSTANCE;
 	}
 	
-	public static AcquistoService getAcquistooServiceInstance() {
+	public static AcquistoService getAcquistoServiceInstance() {
 		if (ACQUISTO_SERVICE_INSTANCE == null)
 			ACQUISTO_SERVICE_INSTANCE = new AcquistoServiceImpl();
 

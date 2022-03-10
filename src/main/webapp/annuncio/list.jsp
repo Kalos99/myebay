@@ -57,7 +57,7 @@
 											<td>${annuncioItem.testoAnnuncio }</td>
 											<td>${annuncioItem.prezzo }</td>
 											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="${ pageContext.request.contextPath }/annuncio/ExecuteVisualizzaUtenteServlet?idUtente=${utenteItem.id }">Visualizza dettaglio</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="${ pageContext.request.contextPath }/ExecuteVisualizzaAnnuncioServlet?idAnnuncio=${annuncioItem.id }">Visualizza dettaglio</a>
 											</td>
 										</tr>
 									</c:forEach>

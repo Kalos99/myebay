@@ -264,4 +264,24 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 		}
 	}
 
+	@Override
+	public Annuncio caricaAnnuncioSingoloConCategorieECreatore(Long id) throws Exception {
+		// questo è come una connection
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			annuncioDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return annuncioDAO.findByIdFetchingCategorieAndCreatore(id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
 }

@@ -9,5 +9,6 @@ import it.prova.myebay.model.Categoria;
 public interface AnnuncioDAO extends IBaseDAO<Annuncio>{
 	public List<Annuncio> findAllByCategoria(Categoria categoriaInput) throws Exception; 
 	public Annuncio findByIdFetchingCategorie(Long id) throws Exception;
+	public Annuncio findByIdFetchingCategorieAndCreatore(Long id) throws Exception;
 	public List<Annuncio> findByExample(Annuncio example) throws Exception;
 }
