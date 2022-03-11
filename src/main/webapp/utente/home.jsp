@@ -111,7 +111,7 @@
 			        </div>
 			        <h2>Gestisci i tuoi annunci</h2>
 			        <p>Puoi cercare i tuoi annunci, inserire nuovi annunci e aggiornare o eliminare annunci non chiusi.</p>
-			        <a href="${pageContext.request.contextPath }/annuncio/PrepareRicercaAnnunciUtenteServlet" class="icon-link">
+			        <a href="${pageContext.request.contextPath }/annuncio/PrepareSearchAnnunciUtenteServlet" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>

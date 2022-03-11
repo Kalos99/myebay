@@ -32,7 +32,7 @@ public class Annuncio {
 	@Column(name = "data")
 	private Date dataPubblicazione;
 	@Column(name = "stato")
-	private Boolean aperto;
+	private Boolean aperto = true;
 
 
 	@ManyToOne(fetch = FetchType.LAZY)

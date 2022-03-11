@@ -51,10 +51,10 @@
 							  <dd class="col-sm-9">${visualizza_utente_attr.stato}</dd>
 					    	</dl>
 					    	
-					    	<!-- info Ruoli -->
+					    <!-- info Ruoli -->
 			                <p>
 				              <a class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-				                Info Ruoli
+				               	 Info Ruoli
 				              </a>
 				            </p>
 				            

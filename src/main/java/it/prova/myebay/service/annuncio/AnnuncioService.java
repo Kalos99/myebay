@@ -28,6 +28,8 @@ public interface AnnuncioService {
 	public Annuncio caricaAnnuncioSingoloConCategorieECreatore(Long id) throws Exception;
 	
 	public List<Annuncio> findByExample(Annuncio example) throws Exception;
+	
+	public List<Annuncio> findByExampleConUtente(Annuncio example) throws Exception;
 
 	// per injection
 	public void setAnnuncioDAO(AnnuncioDAO annuncioDAO);

@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 
+import it.prova.myebay.exceptions.InvalidUserException;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
 
@@ -85,10 +86,10 @@ public class AnnuncioDAOImpl implements AnnuncioDAO {
 		Map<String, Object> paramaterMap = new HashMap<String, Object>();
 		List<String> whereClauses = new ArrayList<String>();
 
-		StringBuilder queryBuilder = new StringBuilder("select distinct a from Annuncio a left join a.categorie c where a.id = a.id ");
+		StringBuilder queryBuilder = new StringBuilder("select distinct a from Annuncio a left join a.categorie c where a.id = a.id and a.utenteInserimento.stato = 'ATTIVO' ");
 
 		if (StringUtils.isNotEmpty(example.getTestoAnnuncio())) {
-			whereClauses.add(" a.testo  like :testo ");
+			whereClauses.add(" a.testoAnnuncio  like :testo ");
 			paramaterMap.put("testo", "%" + example.getTestoAnnuncio() + "%");
 		}
 		if (example.getPrezzo() != null) {
@@ -96,11 +97,11 @@ public class AnnuncioDAOImpl implements AnnuncioDAO {
 			paramaterMap.put("prezzo", example.getPrezzo());
 		}
 		if (example.getAperto() != null) {
-			whereClauses.add(" a.stato = :stato ");
-			paramaterMap.put("stato", true);
+			whereClauses.add(" a.aperto = :aperto ");
+			paramaterMap.put("aperto", true);
 		}
 		if (example.getDataPubblicazione() != null) {
-			whereClauses.add(" a.data >= :dataPubblicazione ");
+			whereClauses.add(" a.dataPubblicazione >= :dataPubblicazione ");
 			paramaterMap.put("dataPubblicazione", example.getDataPubblicazione());
 		}
 		if (example.getCategorie().size() != 0) {
@@ -127,6 +128,52 @@ public class AnnuncioDAOImpl implements AnnuncioDAO {
 				.createQuery("select a FROM Annuncio a left join fetch a.categorie c left join fetch a.utenteInserimento u where a.id = :idAnnuncio", Annuncio.class);
 		query.setParameter("idAnnuncio", id);
 		return query.getResultList().stream().findFirst().orElse(null);
+	}
+
+	@Override
+	public List<Annuncio> findByExampleConUtente(Annuncio example) throws Exception {
+		if(example.getUtenteInserimento() == null || example.getUtenteInserimento().getId() == null) {
+			throw new InvalidUserException("Errore: utente non trovato");
+		}
+		Map<String, Object> paramaterMap = new HashMap<String, Object>();
+		List<String> whereClauses = new ArrayList<String>();
+
+		StringBuilder queryBuilder = new StringBuilder("select distinct a from Annuncio a left join a.categorie c where a.utenteInserimento.id = :idUtente ");
+		
+
+		if (StringUtils.isNotEmpty(example.getTestoAnnuncio())) {
+			whereClauses.add(" a.testoAnnuncio like :testo ");
+			paramaterMap.put("testo", "%" + example.getTestoAnnuncio() + "%");
+		}
+		if (example.getPrezzo() != null) {
+			whereClauses.add(" a.prezzo >= :prezzo");
+			paramaterMap.put("prezzo", example.getPrezzo());
+		}
+		if (example.getAperto() != null) {
+			whereClauses.add(" a.aperto = :aperto ");
+			paramaterMap.put("aperto", example.getAperto());
+		}
+		if (example.getDataPubblicazione() != null) {
+			whereClauses.add(" a.dataPubblicazione >= :dataPubblicazione ");
+			paramaterMap.put("dataPubblicazione", example.getDataPubblicazione());
+		}
+		if (example.getCategorie().size() != 0) {
+			whereClauses.add(" c IN :categorie  ");
+			paramaterMap.put("categorie", example.getCategorie());
+		}
+		
+		queryBuilder.append(!whereClauses.isEmpty()? " and " : "");
+		queryBuilder.append(StringUtils.join(whereClauses, " and "));
+		TypedQuery<Annuncio> typedQuery = entityManager.createQuery(queryBuilder.toString(), Annuncio.class);
+		typedQuery.setParameter("idUtente", example.getUtenteInserimento().getId());
+
+		for (String key : paramaterMap.keySet()) {
+			typedQuery.setParameter(key, paramaterMap.get(key));
+		}
+		
+		System.out.println(typedQuery);
+
+		return typedQuery.getResultList();
 	}
 
 }

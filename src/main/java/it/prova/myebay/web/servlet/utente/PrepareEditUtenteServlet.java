@@ -34,7 +34,7 @@ public class PrepareEditUtenteServlet extends HttpServlet {
 
 		try{
 			Utente utentePerAggiornamento = MyServiceFactory.getUtenteServiceInstance().caricaSingoloUtenteConRuoli(Long.parseLong(parametroIdDellUtenteDaAggiornare));
-			request.setAttribute("mappaRuoliConSelezionati_attr", UtilityForm.buildCheckedRolesForPages(MyServiceFactory.getRuoloServiceInstance().listAll(), null));
+			request.setAttribute("mappaRuoliConSelezionati_attr", UtilityForm.buildCheckedRolesFromRolesAlreadyInUtente(MyServiceFactory.getRuoloServiceInstance().listAll(), utentePerAggiornamento.getRuoli()));
 			request.setAttribute("utenteCheSiVuoleAggiornare", utentePerAggiornamento);
 		} catch (Exception e){
 			//qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo

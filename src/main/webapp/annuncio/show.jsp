@@ -46,12 +46,26 @@
 							  <dd class="col-sm-9">${visualizza_annuncio_attr.utenteInserimento.username}</dd>
 					    	</dl>
 					    	
-					    	<dl class="row">
-							  <dt class="col-sm-3 text-right">Categorie:</dt>
-							  <c:forEach items="${visualizza_annuncio_attr.categorie}" var="categoria">
-							  	<dd class="row-sm-9">${ categoria.codice }</dd>
-							  </c:forEach>
-					    	</dl>
+					    	<!-- info Categorie -->
+			                <p>
+				              <a class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+				               	 Info Categorie
+				              </a>
+				            </p>
+				            
+				            <div class="collapse" id="collapseExample">
+				              <div class="card card-body">
+				                 <dl class= "row">
+				                  <dt class = "col-sm-3 text-right"> Categorie:</dt>
+				                  <c:forEach items="${visualizza_annuncio_attr.categorie}" var="categoria">
+				                    <dd class="row-sm-9">${ categoria.codice }-${categoria.descrizione }</dd>
+				                    <br>
+				                  </c:forEach>
+				                </dl>
+				                  
+				               </div>
+				             <!-- end info Ruoli -->
+				             </div>
 					    	
 					    </div>
 					    

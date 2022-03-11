@@ -75,7 +75,8 @@ public class UtilityForm {
 		// prima controlliamo che non siano vuoti i parametri
 		if (StringUtils.isBlank(utenteToBeValidated.getNome())
 				|| StringUtils.isBlank(utenteToBeValidated.getCognome())
-				|| StringUtils.isBlank(utenteToBeValidated.getUsername())) {
+				|| StringUtils.isBlank(utenteToBeValidated.getUsername())
+				|| StringUtils.isBlank(utenteToBeValidated.getStato().toString())) {
 			return false;
 		}
 		return true;
@@ -143,6 +144,24 @@ public class UtilityForm {
 
 		for (Categoria categoriaItem : listaTotaleCategorie) {
 			result.put(categoriaItem, categorieIdConvertiti.contains(categoriaItem.getId()));
+		}
+
+		return result;
+	}
+	
+	public static Map<Categoria, Boolean> buildCheckedCategoriesFromCategoriesAlreadyInAnnuncio(List<Categoria> listaTotaleCategorie,
+			Set<Categoria> listaCategoriePosseduteDaAnnuncio) {
+		Map<Categoria, Boolean> result = new TreeMap<>();
+
+		// converto array di ruoli in List di Long
+		List<Long> categorieConvertiteInIds = new ArrayList<>();
+		for (Categoria categoriaDiAnnuncioItem : listaCategoriePosseduteDaAnnuncio != null ? listaCategoriePosseduteDaAnnuncio
+				: new ArrayList<Categoria>()) {
+			categorieConvertiteInIds.add(categoriaDiAnnuncioItem.getId());
+		}
+
+		for (Categoria categoriaItem : listaTotaleCategorie) {
+			result.put(categoriaItem, categorieConvertiteInIds.contains(categoriaItem.getId()));
 		}
 
 		return result;

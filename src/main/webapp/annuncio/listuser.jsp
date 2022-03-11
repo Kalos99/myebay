@@ -41,34 +41,26 @@
 				        <h5>Lista dei risultati</h5> 
 				    </div>
 				    <div class='card-body'>
-				    	<a class="btn btn-primary " href="${ pageContext.request.contextPath }/utente/PrepareInsertUtenteServlet">Add New</a>
-				    	<a class="btn btn-outline-primary ml-2" href="PrepareSearchUtenteServlet">Ricerca</a>
 				    
 				        <div class='table-responsive'>
 				            <table class='table table-striped ' >
 				                <thead>
 				                    <tr>
-			                         	<th>Nome</th>
-				                        <th>Cognome</th>
-				                        <th>Username</th>
-				                        <th>Data creazione</th>
-				                        <th>Stato</th>
+			                         	<th>Testo</th>
+				                        <th>Prezzo</th>
 				                        <th>Azioni</th>
 				                    </tr>
 				                </thead>
 				                <tbody>
-				                	<c:forEach items="${utenti_list_attribute }" var="utenteItem">
+				                	<c:forEach items="${annunci_list_attribute }" var="annuncioItem">
 										<tr>
-											<td>${utenteItem.nome }</td>
-											<td>${utenteItem.cognome }</td>
-											<td>${utenteItem.username }</td>
-											<td><fmt:formatDate type = "date" value = "${utenteItem.dateCreated}" /></td>
-											<td>${utenteItem.stato }</td>
+											<td>${annuncioItem.testoAnnuncio }</td>
+											<td>${annuncioItem.prezzo }</td>
 											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="${ pageContext.request.contextPath }/utente/ExecuteVisualizzaUtenteServlet?idUtente=${utenteItem.id }">Visualizza</a>
-												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${ pageContext.request.contextPath }/utente/PrepareEditUtenteServlet?idUtente=${utenteItem.id }">Edit</a>
-												<c:if test="${utenteItem.stato != 'DISABILITATO' }">
-													<a class="btn btn-outline-danger btn-sm" href="${ pageContext.request.contextPath }/utente/PrepareDeleteUtenteServlet?idUtente=${utenteItem.id }">Delete</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="${ pageContext.request.contextPath }/annuncio/ExecuteVisualizzaAnnuncioUtenteServlet?idAnnuncio=${annuncioItem.id }">Visualizza dettaglio</a>
+												<c:if test="${annuncioItem.aperto}">
+													<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${ pageContext.request.contextPath }/annuncio/PrepareEditAnnuncioUtenteServlet?idAnnuncio=${annuncioItem.id }">Edit</a>
+													<a class="btn btn-outline-danger btn-sm" href="${ pageContext.request.contextPath }/annuncio/PrepareDeleteAnnuncioUtenteServlet?idAnnuncio=${annuncioItem.id }">Delete</a>
 												</c:if>
 											</td>
 										</tr>
