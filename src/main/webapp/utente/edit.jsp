@@ -69,10 +69,12 @@
 								  	</c:forEach>
 							
 								<div class="col-12">
-									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
-								</div>
-								
-		
+									<input type="hidden" name="idUtente" value="${utenteCheSiVuoleAggiornare.id}">
+									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Aggiorna</button>
+									<a href="ExecuteListRegistaServlet" class='btn btn-outline-secondary' style='width:80px'>
+					            		<i class='fa fa-chevron-left'></i> Back
+					       			</a>
+							   </div>
 						</form>
   
 				    

@@ -1,9 +1,13 @@
 package it.prova.myebay.service.utente;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
+
+import org.apache.commons.lang3.math.NumberUtils;
 
 import it.prova.myebay.dao.ruolo.RuoloDAO;
 import it.prova.myebay.dao.utente.UtenteDAO;
@@ -67,7 +71,7 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public void aggiorna(Utente utenteInstance) throws Exception {
+	public void aggiorna(Utente utenteInstance, String[] ruoli) throws Exception {
 		// questo è come una connection
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
@@ -77,9 +81,26 @@ public class UtenteServiceImpl implements UtenteService {
 
 			// uso l'injection per il dao
 			utenteDAO.setEntityManager(entityManager);
-
+			
+			Utente utenteDaModificare = utenteDAO.findOne(utenteInstance.getId()).get();
+			
+			utenteDaModificare.setNome(utenteInstance.getNome());
+			utenteDaModificare.setCognome(utenteInstance.getCognome());
+			utenteDaModificare.setUsername(utenteInstance.getUsername());
+			utenteDaModificare.setStato(utenteInstance.getStato());
+			utenteDaModificare.getRuoli().clear();
+			
+			Set<Ruolo> ruoliUtente = new HashSet<Ruolo>();
+			for(String ruoloId : ruoli!=null?ruoli:new String[] {}) {
+				if(NumberUtils.isCreatable(ruoloId)) {
+					Ruolo ruoloDaInserire = new Ruolo();
+					ruoloDaInserire.setId(Long.parseLong(ruoloId));
+					ruoliUtente.add(ruoloDaInserire);
+				}
+			}
+			utenteDaModificare.setRuoli(ruoliUtente);
 			// eseguo quello che realmente devo fare
-			utenteDAO.update(utenteInstance);
+			utenteDAO.update(utenteDaModificare);
 
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {

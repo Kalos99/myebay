@@ -45,12 +45,37 @@ public class UtilityForm {
 		return result;
 	}
 	
+	public static Utente createUtenteFromParamsForEdit( String userameInputParam, String nomeInputParam, String cognomeInputParam, String statoParam, String[] ruoliInputParam) {
+		Set<Ruolo> ruoliUtente = new HashSet<Ruolo>();
+		Utente result = new Utente(userameInputParam, nomeInputParam, cognomeInputParam);
+		result.setStato(StatoUtente.valueOf(statoParam));
+		for(String ruoloId : ruoliInputParam!=null?ruoliInputParam:new String[] {}) {
+			if(NumberUtils.isCreatable(ruoloId)) {
+				Ruolo ruoloDaInserire = new Ruolo();
+				ruoloDaInserire.setId(Long.parseLong(ruoloId));
+				ruoliUtente.add(ruoloDaInserire);
+			}
+		}
+		result.setRuoli(ruoliUtente);
+		return result;
+	}
+	
 	public static boolean validateUtenteBean(Utente utenteToBeValidated) {
 		// prima controlliamo che non siano vuoti i parametri
 		if (StringUtils.isBlank(utenteToBeValidated.getNome())
 				|| StringUtils.isBlank(utenteToBeValidated.getCognome())
 				|| StringUtils.isBlank(utenteToBeValidated.getUsername()) 
 				|| utenteToBeValidated.getPassword() == null) {
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean validateUtenteBeanForEdit(Utente utenteToBeValidated) {
+		// prima controlliamo che non siano vuoti i parametri
+		if (StringUtils.isBlank(utenteToBeValidated.getNome())
+				|| StringUtils.isBlank(utenteToBeValidated.getCognome())
+				|| StringUtils.isBlank(utenteToBeValidated.getUsername())) {
 			return false;
 		}
 		return true;

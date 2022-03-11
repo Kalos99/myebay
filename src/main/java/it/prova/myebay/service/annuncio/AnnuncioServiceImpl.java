@@ -120,7 +120,7 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 			annuncioDAO.setEntityManager(entityManager);
 			Annuncio annuncioToRemove = annuncioDAO.findByIdFetchingCategorie(idAnnuncioToRemove);
 			if (annuncioToRemove == null)
-				throw new ElementNotFoundException("Regista con id: " + idAnnuncioToRemove + " non trovato.");
+				throw new ElementNotFoundException("Annuncio con id: " + idAnnuncioToRemove + " non trovato.");
 			
 			// eseguo quello che realmente devo fare
 			if (!annuncioToRemove.getAperto())

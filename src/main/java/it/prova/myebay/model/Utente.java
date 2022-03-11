@@ -77,6 +77,12 @@ public class Utente {
 		this.cognome = cognome;
 	}
 	
+	public Utente(String username, String nome, String cognome) {
+		this.username = username;
+		this.nome = nome;
+		this.cognome = cognome;
+	}
+	
 	public Utente(String username, String nome, String cognome, Date dateCreated) {
 		this.username = username;
 		this.nome = nome;

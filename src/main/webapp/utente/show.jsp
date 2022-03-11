@@ -51,12 +51,26 @@
 							  <dd class="col-sm-9">${visualizza_utente_attr.stato}</dd>
 					    	</dl>
 					    	
-					    	<dl class="row">
-							  <dt class="col-sm-3 text-right">Ruoli:</dt>
-							  <c:forEach items="${visualizza_utente_attr.ruoli}" var="ruolo">
-							  	<dd class="row-sm-9">${ ruolo.codice }</dd>
-							  </c:forEach>
-					    	</dl>
+					    	<!-- info Ruoli -->
+			                <p>
+				              <a class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+				                Info Ruoli
+				              </a>
+				            </p>
+				            
+				            <div class="collapse" id="collapseExample">
+				              <div class="card card-body">
+				                 <dl class= "row">
+				                  <dt class = "col-sm-3 text-right"> Ruoli:</dt>
+				                  <c:forEach items="${visualizza_utente_attr.ruoli}" var="ruolo">
+				                    <dd class="row-sm-9">${ ruolo.codice }-${ruolo.descrizione }</dd>
+				                    <br>
+				                  </c:forEach>
+				                </dl>
+				                  
+				               </div>
+				             <!-- end info Ruoli -->
+				             </div>
 					    	
 					    </div>
 					    

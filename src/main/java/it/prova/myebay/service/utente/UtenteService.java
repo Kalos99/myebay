@@ -13,7 +13,7 @@ public interface UtenteService {
 
 	public Utente caricaSingoloElemento(Long id) throws Exception;
 
-	public void aggiorna(Utente utenteInstance) throws Exception;
+	public void aggiorna(Utente utenteInstance, String[] ruoli) throws Exception;
 
 	public void inserisciNuovo(Utente utenteInstance) throws Exception;
 
