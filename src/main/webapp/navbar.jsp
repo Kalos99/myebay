@@ -10,19 +10,16 @@
       <div class="collapse navbar-collapse" id="navbarsExample07">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/ricerca.jsp">Home</a>
+            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/">Home</a>
           </li>
           <c:if test="${userInfo.nome != null}">
 	        <li class="nav-item dropdown">
 	           <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Azioni</a>
 	            <ul class="dropdown-menu" aria-labelledby="dropdown07">
-	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchRegistaServlet">Ricerca Registi</a></li>
-	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertRegistaServlet">Inserisci Regista</a></li>
-	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchFilmServlet">Ricerca Film</a></li>
-	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertFilmServlet">Inserisci Film</a></li>
+	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/>ExecuteVisualizzaAcquistiServlet">Visualizza acquisti effettuati</a></li>
+	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchAnnunciServlet">Gestisci annunci</a></li>
 	              <c:if test="${ userInfo.isAdmin() }">
-	              		<li><a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareSearchUtenteServlet">Ricerca utenti</a></li>
-	              		<li><a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareInsertUtenteServlet">Inserisci nuovo utente</a></li>
+	              		<li><a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareSearchUtenteServlet">Gestione utenti</a></li>
 	              </c:if>
             	</ul>
           	</li> 
@@ -32,11 +29,11 @@
       <div class="col-md-3 text-end">
 	      <c:if test="${userInfo.nome == null}">
 	     	<p class="navbar-text me-auto mb-2 mb-lg-0">
-	     		<a href="${pageContext.request.contextPath}/LoginServlet">Login</a>
+	     		<a href="${pageContext.request.contextPath}/PrepareLoginServlet">Login</a>
 	     	</p>
 	     </c:if>
 	     <c:if test="${userInfo.nome != null}">
-	        <p class="navbar-text">Utente: ${userInfo.username }(${userInfo.nome } ${userInfo.cognome })
+	        <p class="navbar-text me-auto mb-2 mb-lg-0">Utente: ${userInfo.username }(${userInfo.nome } ${userInfo.cognome })
 	     		<a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
 	     	</p>
 	     </c:if>

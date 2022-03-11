@@ -48,11 +48,17 @@
 				  ${errorMessage}
 				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
 				</div>
+				
+				<div class="alert alert-success alert-dismissible fade show ${successMessage==null?'d-none':'' }" role="alert">
+				  ${successMessage}
+				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+				</div>
 			    
 			     <div class="p-5 mb-4 bg-light rounded-3">
 				      <div class="container-fluid py-5">
 				        <h1 class="display-5 fw-bold">Benvenuto su MyEbay</h1>
 				        <p class="col-md-8 fs-4">Cerca l'annuncio che fa per te! </p>
+				        <a class="col-md-8 fs-4" href="${pageContext.request.contextPath}/PrepareRegisterServlet">Non sei ancora registrato? Registrati</a>
 				      </div>
 			   
 			    

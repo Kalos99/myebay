@@ -1,7 +1,10 @@
 package it.prova.myebay.utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +27,7 @@ public class UtilityForm {
 		Utente result = new Utente(userameInputParam, passwordInputParam, nomeInputParam, cognomeInputParam);
 		result.setDateCreated(Calendar.getInstance().getTime());
 		result.setStato(StatoUtente.CREATO);
-		for(String ruoloId : ruoliInputParam) {
+		for(String ruoloId : ruoliInputParam!=null?ruoliInputParam:new String[] {}) {
 			if(NumberUtils.isCreatable(ruoloId)) {
 				Ruolo ruoloDaInserire = new Ruolo();
 				ruoloDaInserire.setId(Long.parseLong(ruoloId));
@@ -32,6 +35,13 @@ public class UtilityForm {
 			}
 		}
 		result.setRuoli(ruoliUtente);
+		return result;
+	}
+	
+	public static Utente createUtenteFromParams( String userameInputParam, String passwordInputParam, String nomeInputParam, String cognomeInputParam) {
+		Utente result = new Utente(userameInputParam, passwordInputParam, nomeInputParam, cognomeInputParam);
+		result.setDateCreated(Calendar.getInstance().getTime());
+		result.setStato(StatoUtente.CREATO);
 		return result;
 	}
 	
@@ -111,5 +121,16 @@ public class UtilityForm {
 		}
 
 		return result;
+	}
+	
+	public static Date parseDateCreazioneFromString(String dateCreatedStringParam) {
+		if (StringUtils.isBlank(dateCreatedStringParam))
+			return null;
+
+		try {
+			return new SimpleDateFormat("yyyy-MM-dd").parse(dateCreatedStringParam);
+		} catch (ParseException e) {
+			return null;
+		}
 	}
 }
