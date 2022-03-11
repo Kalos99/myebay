@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import it.prova.myebay.model.Utente;
 import it.prova.myebay.service.MyServiceFactory;
+import it.prova.myebay.utility.UtilityForm;
 
 @WebServlet("/ExecuteLoginServlet")
 public class ExecuteLoginServlet extends HttpServlet {
@@ -43,7 +44,8 @@ public class ExecuteLoginServlet extends HttpServlet {
 				destinazione = "login.jsp";
 			} else {
 				request.getSession().setAttribute("userInfo", utenteInstance);
-				destinazione = "";
+				request.setAttribute("mappaCategorieConSelezionati_attr", UtilityForm.buildCheckedCategoriesForPages(MyServiceFactory.getCategoriaServiceInstance().listAll(), null));
+				destinazione = "/utente/home.jsp";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
