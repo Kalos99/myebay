@@ -42,6 +42,7 @@
 				    </div>
 				    <div class='card-body'>
 				    	<a class="btn btn-primary " href="PrepareInsertUtenteServlet">Add New</a>
+				    	<a class="btn btn-outline-primary ml-2" href="PrepareSearchUtenteServlet">Ricerca</a>
 				    
 				        <div class='table-responsive'>
 				            <table class='table table-striped ' >
