@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import it.prova.myebay.service.MyServiceFactory;
 
-@WebServlet("/ExecuteListAnnunciServlet")
+@WebServlet("/annuncio/ExecuteListAnnunciServlet")
 public class ExecuteListAnnunciServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,7 +29,7 @@ public class ExecuteListAnnunciServlet extends HttpServlet {
 			if(StringUtils.isNotBlank(operationResult) && operationResult.equalsIgnoreCase("SUCCESS"))
 				request.setAttribute("successMessage", "Operazione effettuata con successo");
 			
-			request.setAttribute("annunci_list_attribute", MyServiceFactory.getAnnuncioServiceInstance().listAll());
+			request.setAttribute("annunci_list_attribute", MyServiceFactory.getAnnuncioServiceInstance().listAllOpened());
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
@@ -38,7 +38,7 @@ public class ExecuteListAnnunciServlet extends HttpServlet {
 		}
 
 		// andiamo ai risultati
-		request.getRequestDispatcher("annuncio/list.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/utente/home.jsp");
 	}
 
 }

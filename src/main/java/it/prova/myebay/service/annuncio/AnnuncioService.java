@@ -30,6 +30,8 @@ public interface AnnuncioService {
 	public List<Annuncio> findByExample(Annuncio example) throws Exception;
 	
 	public List<Annuncio> findByExampleConUtente(Annuncio example) throws Exception;
+	
+	public List<Annuncio> listAllOpened() throws Exception;
 
 	// per injection
 	public void setAnnuncioDAO(AnnuncioDAO annuncioDAO);

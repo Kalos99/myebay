@@ -12,4 +12,5 @@ public interface AnnuncioDAO extends IBaseDAO<Annuncio>{
 	public Annuncio findByIdFetchingCategorieAndCreatore(Long id) throws Exception;
 	public List<Annuncio> findByExample(Annuncio example) throws Exception;
 	public List<Annuncio> findByExampleConUtente(Annuncio example) throws Exception;
+	public List<Annuncio> listOpened() throws Exception;
 }

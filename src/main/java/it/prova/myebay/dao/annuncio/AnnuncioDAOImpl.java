@@ -25,6 +25,13 @@ public class AnnuncioDAOImpl implements AnnuncioDAO {
 		// non la tabella
 		return entityManager.createQuery("from Annuncio", Annuncio.class).getResultList();
 	}
+	
+	@Override
+	public List<Annuncio> listOpened() throws Exception {
+		// dopo la from bisogna specificare il nome dell'oggetto (lettera maiuscola) e
+		// non la tabella
+		return entityManager.createQuery("from Annuncio where aperto = true", Annuncio.class).getResultList();
+	}
 
 	@Override
 	public Optional<Annuncio> findOne(Long id) throws Exception {

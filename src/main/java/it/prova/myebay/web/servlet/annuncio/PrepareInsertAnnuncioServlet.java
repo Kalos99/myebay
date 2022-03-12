@@ -7,26 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.service.MyServiceFactory;
 import it.prova.myebay.utility.UtilityForm;
 
-/**
- * Servlet implementation class PrepareSearchAnnunciUtenteServlet
- */
-@WebServlet("/annuncio/PrepareSearchAnnunciUtenteServlet")
-public class PrepareSearchAnnunciUtenteServlet extends HttpServlet {
+@WebServlet("/annuncio/PrepareInsertAnnuncioServlet")
+public class PrepareInsertAnnuncioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public PrepareSearchAnnunciUtenteServlet() {
+    public PrepareInsertAnnuncioServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			//metto un bean 'vuoto' in request perché per la pagina risulta necessario
-			request.setAttribute("insert_annuncio_attr", new Annuncio());
 			// questo mi serve per la ricerca in base al ruolo
 			request.setAttribute("mappaCategorieConSelezionati_attr", UtilityForm.buildCheckedCategoriesForPages(MyServiceFactory.getCategoriaServiceInstance().listAll(), null));
 		} catch (Exception e) {
@@ -35,7 +30,7 @@ public class PrepareSearchAnnunciUtenteServlet extends HttpServlet {
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 			return;
 		}
-		request.getRequestDispatcher("/annuncio/search.jsp").forward(request, response);
+		request.getRequestDispatcher("/annuncio/insert.jsp").forward(request, response);
 		return;
 	}
 

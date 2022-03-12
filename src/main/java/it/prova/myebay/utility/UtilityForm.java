@@ -98,6 +98,37 @@ public class UtilityForm {
 		return result;
 	}
 	
+	public static Annuncio createAnnuncioFromParams( String testoInputParam, String prezzoInputParam, String[] categorieInputParam, String utenteIdStringParam) {
+		Set<Categoria> categorieAnnuncio = new HashSet<Categoria>();
+		Annuncio result = new Annuncio();
+		result.setTestoAnnuncio(testoInputParam.isBlank() ? null : testoInputParam);
+		result.setPrezzo(NumberUtils.isCreatable(prezzoInputParam) ? Integer.parseInt(prezzoInputParam) : null);
+		result.setDataPubblicazione(Calendar.getInstance().getTime());
+		for(String categoriaId : categorieInputParam!=null?categorieInputParam:new String[] {}) {
+			if(NumberUtils.isCreatable(categoriaId)) {
+				Categoria categoriaDaInserire = new Categoria();
+				categoriaDaInserire.setId(Long.parseLong(categoriaId));
+				categorieAnnuncio.add(categoriaDaInserire);
+			}
+		}
+		result.setCategorie(categorieAnnuncio);
+		if (NumberUtils.isCreatable(utenteIdStringParam)) {
+			result.setUtenteInserimento(new Utente(Long.parseLong(utenteIdStringParam)));
+		}
+		return result;
+	}
+	
+	public static boolean validateAnnuncioBean(Annuncio annuncioToBeValidated) {
+		// prima controlliamo che non siano vuoti i parametri
+		if (StringUtils.isBlank(annuncioToBeValidated.getTestoAnnuncio())
+				|| annuncioToBeValidated.getAperto() == null
+				|| annuncioToBeValidated.getPrezzo() == null 
+				|| annuncioToBeValidated.getDataPubblicazione() == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	public static Map<Ruolo, Boolean> buildCheckedRolesForPages(List<Ruolo> listaTotaleRuoli,
 			String[] ruoliFromParams) {
 		Map<Ruolo, Boolean> result = new TreeMap<>();

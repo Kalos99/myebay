@@ -25,7 +25,7 @@
 			  
 			  <div class='card'>
 				    <div class='card-header'>
-				        <h5>Ricerca utenti</h5> 
+				        <h5>Ricerca annunci</h5> 
 				    </div>
 				    <div class='card-body'>
 		
@@ -79,7 +79,7 @@
 							<div class="col-12">
 								<input type="hidden" name="idUtente" value="${userInfo.id}">
 								<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
-								<a class="btn btn-outline-primary ml-2" href="PrepareInsertAnnuncioServlet">Add New</a>
+								<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath }/annuncio/PrepareInsertAnnuncioServlet">Add New</a>
 								<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
 							</div>
 		
