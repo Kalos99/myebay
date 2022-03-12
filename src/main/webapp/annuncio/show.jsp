@@ -70,7 +70,7 @@
 					    </div>
 					    
 					    <div class='card-footer'>
-						    <a href="${ pageContext.request.contextPath }/ExecuteCompraServlet" class='btn btn-outline-primary' style='width:100px'>
+						    <a href="${ pageContext.request.contextPath }/annuncio/ExecuteCompraAnnuncioServlet?idAnnuncio=${visualizza_annuncio_attr.id }&idUtente=${userInfo.id }" class='btn btn-outline-primary' style='width:100px'>
 						            <i class='fa fa-chevron-left'></i> Compra
 						        </a>
 					        <a href="${ pageContext.request.contextPath }/ExecuteListAnnunciServlet" class='btn btn-outline-secondary' style='width:80px'>

@@ -135,4 +135,20 @@ public class AcquistoServiceImpl implements AcquistoService{
 		}
 	}
 
+	@Override
+	public List<Acquisto> trovaAcquistiDiUtente(Long id) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			acquistoDAO.setEntityManager(entityManager);
+
+			return acquistoDAO.findAllByAcquirente(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
 }

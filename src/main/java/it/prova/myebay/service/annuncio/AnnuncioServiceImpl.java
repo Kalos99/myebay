@@ -1,5 +1,6 @@
 package it.prova.myebay.service.annuncio;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,19 +9,26 @@ import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import it.prova.myebay.dao.acquisto.AcquistoDAO;
 import it.prova.myebay.dao.annuncio.AnnuncioDAO;
 import it.prova.myebay.dao.categoria.CategoriaDAO;
+import it.prova.myebay.dao.utente.UtenteDAO;
 import it.prova.myebay.exceptions.AnnuncioChiusoException;
+import it.prova.myebay.exceptions.CreditoNonSufficienteException;
 import it.prova.myebay.exceptions.ElementNotFoundException;
+import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
 import it.prova.myebay.model.Ruolo;
+import it.prova.myebay.model.Utente;
 import it.prova.myebay.web.listener.LocalEntityManagerFactoryListener;
 
 public class AnnuncioServiceImpl implements AnnuncioService{
 	
 	private AnnuncioDAO annuncioDAO;
 	private CategoriaDAO categoriaDAO;
+	private UtenteDAO utenteDAO;
+	private AcquistoDAO acquistoDAO;
 
 	@Override
 	public List<Annuncio> listAll() throws Exception {
@@ -263,6 +271,17 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
 		this.categoriaDAO = categoriaDAO;	
 	}
+	
+	@Override
+	public void setUtenteDAO(UtenteDAO utenteDAO) {
+		this.utenteDAO = utenteDAO;
+		
+	}
+
+	@Override
+	public void setAcquistoDAO(AcquistoDAO acquistoDAO) {
+		this.acquistoDAO = acquistoDAO;
+	}
 
 	@Override
 	public List<Annuncio> findByExample(Annuncio example) throws Exception {
@@ -344,4 +363,40 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 		}
 	}
 
+	@Override
+	public void eseguiAcquisto(Long idUtente, Long idAnnuncio) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// questo è come il MyConnection.getConnection()
+			entityManager.getTransaction().begin();
+
+			// uso l'injection per il dao
+			annuncioDAO.setEntityManager(entityManager);
+			utenteDAO.setEntityManager(entityManager);
+			acquistoDAO.setEntityManager(entityManager);
+
+			
+			Annuncio annuncioInstance = annuncioDAO.findOne(idAnnuncio).get();
+			Utente utenteInstance = utenteDAO.findOne(idUtente).get();
+			
+			if(annuncioInstance.getPrezzo() > utenteInstance.getCreditoResiduo()) {
+				throw new CreditoNonSufficienteException("Impossibile effettuare l'acquisto: il credito residuo non è sufficiente"); 
+			}
+			utenteInstance.setCreditoResiduo(utenteInstance.getCreditoResiduo() - annuncioInstance.getPrezzo());
+			annuncioInstance.setAperto(false);
+			
+			Acquisto acquistoInstance = new Acquisto(annuncioInstance.getTestoAnnuncio(), Calendar.getInstance().getTime(), annuncioInstance.getPrezzo(), utenteInstance);
+		
+			acquistoDAO.insert(acquistoInstance);
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
 }

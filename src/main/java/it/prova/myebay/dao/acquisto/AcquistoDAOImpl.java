@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import it.prova.myebay.exceptions.InvalidUserException;
 import it.prova.myebay.model.Acquisto;
+import it.prova.myebay.model.Annuncio;
 
 public class AcquistoDAOImpl implements AcquistoDAO {
 	
@@ -96,5 +97,15 @@ public class AcquistoDAOImpl implements AcquistoDAO {
 		System.out.println(typedQuery);
 
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	public List<Acquisto> findAllByAcquirente(Long id) throws Exception {
+		if(id == null) {
+			throw new InvalidUserException("Errore: utente non trovato");
+		}
+		TypedQuery<Acquisto> query = entityManager.createQuery("select a FROM Acquisto a join a.utenteAcquirente u where u.id = :idacquirente", Acquisto.class);
+		query.setParameter("idacquirente", id);
+		return query.getResultList();
 	}
 }
