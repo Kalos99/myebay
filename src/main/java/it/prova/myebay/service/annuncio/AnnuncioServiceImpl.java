@@ -1,8 +1,12 @@
 package it.prova.myebay.service.annuncio;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
+
+import org.apache.commons.lang3.math.NumberUtils;
 
 import it.prova.myebay.dao.annuncio.AnnuncioDAO;
 import it.prova.myebay.dao.categoria.CategoriaDAO;
@@ -10,6 +14,7 @@ import it.prova.myebay.exceptions.AnnuncioChiusoException;
 import it.prova.myebay.exceptions.ElementNotFoundException;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
+import it.prova.myebay.model.Ruolo;
 import it.prova.myebay.web.listener.LocalEntityManagerFactoryListener;
 
 public class AnnuncioServiceImpl implements AnnuncioService{
@@ -58,7 +63,7 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 	}
 
 	@Override
-	public void aggiorna(Annuncio annuncioInstance) throws Exception {
+	public void aggiorna(Annuncio annuncioInstance, String[] categorie) throws Exception {
 		// questo è come una connection
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
@@ -68,9 +73,24 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 
 			// uso l'injection per il dao
 			annuncioDAO.setEntityManager(entityManager);
-
+			
+			Annuncio annuncioDaModificare = annuncioDAO.findByIdFetchingCategorie(annuncioInstance.getId());
+			
+			annuncioDaModificare.setTestoAnnuncio(annuncioInstance.getTestoAnnuncio());
+			annuncioDaModificare.setPrezzo(annuncioInstance.getPrezzo());
+			annuncioDaModificare.getCategorie().clear();
+			
+			Set<Categoria> categorieAnnuncio = new HashSet<Categoria>();
+			for(String categoriaId : categorie!=null?categorie:new String[] {}) {
+				if(NumberUtils.isCreatable(categoriaId)) {
+					Categoria categoriaDaInserire = new Categoria();
+					categoriaDaInserire.setId(Long.parseLong(categoriaId));
+					categorieAnnuncio.add(categoriaDaInserire);
+				}
+			}
+			annuncioDaModificare.setCategorie(categorieAnnuncio);
 			// eseguo quello che realmente devo fare
-			annuncioDAO.update(annuncioInstance);
+			annuncioDAO.update(annuncioDaModificare);
 
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {

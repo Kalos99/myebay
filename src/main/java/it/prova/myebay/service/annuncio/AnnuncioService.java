@@ -13,7 +13,7 @@ public interface AnnuncioService {
 
 	public Annuncio caricaSingoloAnnuncio(Long id) throws Exception;
 
-	public void aggiorna(Annuncio annuncioInstance) throws Exception;
+	public void aggiorna(Annuncio annuncioInstance, String[] categorie) throws Exception;
 
 	public void inserisciNuovo(Annuncio annuncioInstance) throws Exception;
 

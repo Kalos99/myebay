@@ -82,7 +82,7 @@ public class UtenteServiceImpl implements UtenteService {
 			// uso l'injection per il dao
 			utenteDAO.setEntityManager(entityManager);
 			
-			Utente utenteDaModificare = utenteDAO.findOne(utenteInstance.getId()).get();
+			Utente utenteDaModificare = utenteDAO.findOneFetchingRuoli(utenteInstance.getId());
 			
 			utenteDaModificare.setNome(utenteInstance.getNome());
 			utenteDaModificare.setCognome(utenteInstance.getCognome());
