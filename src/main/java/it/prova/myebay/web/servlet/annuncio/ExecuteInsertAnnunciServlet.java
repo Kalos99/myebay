@@ -54,6 +54,6 @@ public class ExecuteInsertAnnunciServlet extends HttpServlet {
 		// andiamo ai risultati
 		// uso il sendRedirect con parametro per evitare il problema del double save on
 		// refresh
-		response.sendRedirect("ExecuteListAnnunciServlet?operationResult=SUCCESS");
+		response.sendRedirect(request.getContextPath() + "/utente/home.jsp");
 	}
 }

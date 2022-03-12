@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import it.prova.myebay.service.MyServiceFactory;
 
-@WebServlet("/annuncio/ExecuteListAnnunciServlet")
+@WebServlet("/ExecuteListAnnunciServlet")
 public class ExecuteListAnnunciServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,7 +38,7 @@ public class ExecuteListAnnunciServlet extends HttpServlet {
 		}
 
 		// andiamo ai risultati
-		response.sendRedirect(request.getContextPath() + "/utente/home.jsp");
+		request.getRequestDispatcher("annuncio/list.jsp").forward(request, response);
 	}
 
 }

@@ -7,7 +7,7 @@
 	 	<!-- Common imports in pages -->
 	 	<jsp:include page="../header.jsp" />
 	   
-	   <title>Rimuovi Elemento</title>
+	   <title>Disabilita</title>
 	 </head>
 	   <body class="d-flex flex-column h-100">
 	   
