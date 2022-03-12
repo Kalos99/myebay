@@ -16,7 +16,7 @@
 	        <li class="nav-item dropdown">
 	           <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Azioni</a>
 	            <ul class="dropdown-menu" aria-labelledby="dropdown07">
-	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ExecuteVisualizzaAcquistiServlet">Visualizza acquisti effettuati</a></li>
+	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/PrepareSearchAcquistiServlet">Ricerca acquisti</a></li>
 	              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/PrepareSearchAnnunciUtenteServlet">Gestisci annunci</a></li>
 	              <c:if test="${ userInfo.isAdmin() }">
 	              		<li><a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareSearchUtenteServlet">Gestione utenti</a></li>

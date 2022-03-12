@@ -126,7 +126,7 @@
 			        </div>
 			        <h2>Visualizza i tuoi acquisti</h2>
 			        <p>Visualizza gli acquisti effettuati durante la tua esperienza sulla nostra piattaforma.</p>
-			        <a href="${pageContext.request.contextPath }/acquisto/ExecuteVisualizzaAcquistiServlet" class="icon-link">
+			        <a href="${pageContext.request.contextPath }/acquisto/PrepareSearchAcquistiServlet" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>

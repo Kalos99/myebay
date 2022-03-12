@@ -35,7 +35,7 @@ public class ExecuteSearchUtenteServlet extends HttpServlet {
 		String[] ruoliIdParam = request.getParameterValues("ruoli");
 
 		try {
-			Utente example = new Utente(usernameParam, nomeParam, cognomeParam, UtilityForm.parseDateCreazioneFromString(dataCreazioneParam));
+			Utente example = new Utente(usernameParam, nomeParam, cognomeParam, UtilityForm.parseDateFromString(dataCreazioneParam));
 			
 			Set<Ruolo> ruoliUtente = new HashSet<Ruolo>();
 			for(String ruoloId : ruoliIdParam!=null?ruoliIdParam:new String[] {}) {

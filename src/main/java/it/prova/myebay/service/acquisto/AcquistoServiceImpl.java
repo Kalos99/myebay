@@ -115,4 +115,24 @@ public class AcquistoServiceImpl implements AcquistoService{
 		this.acquistoDAO = acquistoDAO;
 	}
 
+	@Override
+	public List<Acquisto> findByExample(Acquisto example) throws Exception {
+		// questo è come una connection
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			acquistoDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return acquistoDAO.findByExample(example);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
 }

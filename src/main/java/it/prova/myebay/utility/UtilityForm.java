@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
 import it.prova.myebay.model.Ruolo;
@@ -158,6 +159,17 @@ public class UtilityForm {
 		return true;
 	}
 	
+	public static Acquisto createAcquistoFromParams( String descrizioneInputParam, String prezzoInputParam, String dataAcquistoParam, String utenteIdStringParam) {
+		Acquisto result = new Acquisto();
+		result.setDescrizione(descrizioneInputParam.isBlank() ? null : descrizioneInputParam);
+		result.setPrezzo(NumberUtils.isCreatable(prezzoInputParam) ? Integer.parseInt(prezzoInputParam) : null);
+		result.setData(parseDateFromString(dataAcquistoParam));
+		if (NumberUtils.isCreatable(utenteIdStringParam)) {
+			result.setUtenteAcquirente(new Utente(Long.parseLong(utenteIdStringParam)));
+		}
+		return result;
+	}
+	
 	public static Map<Ruolo, Boolean> buildCheckedRolesForPages(List<Ruolo> listaTotaleRuoli,
 			String[] ruoliFromParams) {
 		Map<Ruolo, Boolean> result = new TreeMap<>();
@@ -227,12 +239,12 @@ public class UtilityForm {
 		return result;
 	}
 	
-	public static Date parseDateCreazioneFromString(String dateCreatedStringParam) {
-		if (StringUtils.isBlank(dateCreatedStringParam))
+	public static Date parseDateFromString(String dateStringParam) {
+		if (StringUtils.isBlank(dateStringParam))
 			return null;
 
 		try {
-			return new SimpleDateFormat("yyyy-MM-dd").parse(dateCreatedStringParam);
+			return new SimpleDateFormat("yyyy-MM-dd").parse(dateStringParam);
 		} catch (ParseException e) {
 			return null;
 		}
