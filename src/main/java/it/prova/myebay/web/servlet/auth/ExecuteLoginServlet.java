@@ -45,7 +45,7 @@ public class ExecuteLoginServlet extends HttpServlet {
 			} else {
 				request.getSession().setAttribute("userInfo", utenteInstance);
 				request.setAttribute("mappaCategorieConSelezionati_attr", UtilityForm.buildCheckedCategoriesForPages(MyServiceFactory.getCategoriaServiceInstance().listAll(), null));
-				destinazione = "/utente/home.jsp";
+				destinazione = "home.jsp";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

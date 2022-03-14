@@ -4,7 +4,7 @@
 	 <head>
 	 
 	 	<!-- Common imports in pages -->
-	 	<jsp:include page="../header.jsp" />
+	 	<jsp:include page="./header.jsp" />
 		<!-- Custom styles per le features di bootstrap 'Columns with icons' -->
 	   <link href="${pageContext.request.contextPath}/assets/css/features.css" rel="stylesheet">
 	   
@@ -37,7 +37,7 @@
 	   
 	   
 	   		<!-- Fixed navbar -->
-	   		<jsp:include page="../navbar.jsp"></jsp:include>
+	   		<jsp:include page="./navbar.jsp"></jsp:include>
 	    
 			
 			<!-- Begin page content -->
@@ -131,7 +131,7 @@
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
 			      </div>
-			      <c:if test="${userInfo.isAdmin() }">
+			      <c:if test="${userInfo.isAdmin() }"> --%>
 				      <div class="feature col">
 				        <div class="feature-icon bg-success bg-gradient">
 				          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
@@ -144,12 +144,12 @@
 				        </a>
 				      </div>
 				    </div>
-				 </c:if>
+< 				 </c:if>
 			  </div>
 			  
 			</main>
 			
 			<!-- Footer -->
-			<jsp:include page="../footer.jsp" />
+			<jsp:include page="./footer.jsp" />
 	  </body>
 </html>

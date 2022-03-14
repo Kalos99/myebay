@@ -183,6 +183,14 @@ public class Utente {
 	public void setAcquisti(Set<Acquisto> acquisti) {
 		this.acquisti = acquisti;
 	}
+	
+	public boolean isClassicUser() {
+		for (Ruolo ruoloItem : ruoli) {
+			if (ruoloItem.getCodice().equals(Ruolo.CLASSIC_USER_ROLE))
+				return true;
+		}
+		return false;
+	}
 
 	public boolean isAdmin() {
 		for (Ruolo ruoloItem : ruoli) {

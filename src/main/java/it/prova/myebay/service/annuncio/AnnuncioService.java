@@ -35,6 +35,8 @@ public interface AnnuncioService {
 	
 	public List<Annuncio> listAllOpened() throws Exception;
 	
+	public List<Annuncio> trovaAnnunciDiUtente(Long id) throws Exception;
+	
 	public void eseguiAcquisto(Long idUtente, Long idAnnuncio) throws Exception;
 
 	// per injection

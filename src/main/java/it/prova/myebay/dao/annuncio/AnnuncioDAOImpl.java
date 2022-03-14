@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 
 import it.prova.myebay.exceptions.InvalidUserException;
+import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
 
@@ -181,6 +182,16 @@ public class AnnuncioDAOImpl implements AnnuncioDAO {
 		System.out.println(typedQuery);
 
 		return typedQuery.getResultList();
+	}
+	
+	@Override
+	public List<Annuncio> findAllByCreatoreAnnuncio(Long id) throws Exception {
+		if(id == null) {
+			throw new InvalidUserException("Errore: utente non trovato");
+		}
+		TypedQuery<Annuncio> query = entityManager.createQuery("select a FROM Annuncio a join a.utenteInserimento u where u.id = :idUtenteInserimento", Annuncio.class);
+		query.setParameter("idUtenteInserimento", id);
+		return query.getResultList();
 	}
 
 }

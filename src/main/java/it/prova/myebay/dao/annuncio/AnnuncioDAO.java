@@ -13,4 +13,5 @@ public interface AnnuncioDAO extends IBaseDAO<Annuncio>{
 	public List<Annuncio> findByExample(Annuncio example) throws Exception;
 	public List<Annuncio> findByExampleConUtente(Annuncio example) throws Exception;
 	public List<Annuncio> listOpened() throws Exception;
+	public List<Annuncio> findAllByCreatoreAnnuncio(Long id) throws Exception;
 }

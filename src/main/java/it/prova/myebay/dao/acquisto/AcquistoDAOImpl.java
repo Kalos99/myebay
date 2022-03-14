@@ -71,7 +71,7 @@ public class AcquistoDAOImpl implements AcquistoDAO {
 		Map<String, Object> paramaterMap = new HashMap<String, Object>();
 		List<String> whereClauses = new ArrayList<String>();
 
-		StringBuilder queryBuilder = new StringBuilder("from Acquisto a where a.id = a.id ");
+		StringBuilder queryBuilder = new StringBuilder("from Acquisto a where a.utenteAcquirente.id = :idUtente  ");
 
 		if (StringUtils.isNotEmpty(example.getDescrizione())) {
 			whereClauses.add(" a.descrizione like :descrizione ");
@@ -89,6 +89,7 @@ public class AcquistoDAOImpl implements AcquistoDAO {
 		queryBuilder.append(!whereClauses.isEmpty()? " and " : "");
 		queryBuilder.append(StringUtils.join(whereClauses, " and "));
 		TypedQuery<Acquisto> typedQuery = entityManager.createQuery(queryBuilder.toString(), Acquisto.class);
+		typedQuery.setParameter("idUtente", example.getUtenteAcquirente().getId());
 
 		for (String key : paramaterMap.keySet()) {
 			typedQuery.setParameter(key, paramaterMap.get(key));

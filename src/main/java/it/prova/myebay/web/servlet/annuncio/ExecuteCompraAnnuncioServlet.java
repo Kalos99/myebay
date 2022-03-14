@@ -44,10 +44,11 @@ public class ExecuteCompraAnnuncioServlet extends HttpServlet {
 			// qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore: non è stato possibile effettuare l'acquisto");
-			request.getRequestDispatcher("utente/home.jsp").forward(request, response);
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 			return;
 		}
 		
+		request.setAttribute("successMessage", "L'acquisto è stato effettuato con successo");
 		response.sendRedirect(request.getContextPath() + "/acquisto/list.jsp");
 	}
 }

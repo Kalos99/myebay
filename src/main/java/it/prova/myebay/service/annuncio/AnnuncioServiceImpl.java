@@ -362,6 +362,22 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
 	}
+	
+	@Override
+	public List<Annuncio> trovaAnnunciDiUtente(Long id) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			annuncioDAO.setEntityManager(entityManager);
+
+			return annuncioDAO.findAllByCreatoreAnnuncio(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
 
 	@Override
 	public void eseguiAcquisto(Long idUtente, Long idAnnuncio) throws Exception {
