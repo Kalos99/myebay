@@ -46,6 +46,12 @@ public class CheckAuthFilter implements Filter {
 			Utente utenteInSession = (Utente)httpRequest.getSession().getAttribute("userInfo");
 			//intanto verifico se utente in sessione
 			if (utenteInSession == null) {
+				String idUtente = request.getParameter("idUtente");
+				if(idUtente != null) {
+					request.setAttribute("idAnnunncio", request.getParameter("idAnnuncio"));
+					httpRequest.getRequestDispatcher("/PrepareLoginServlet").forward(httpRequest, httpResponse);
+					return;
+				}
 				httpResponse.sendRedirect(httpRequest.getContextPath());
 				return;
 			}

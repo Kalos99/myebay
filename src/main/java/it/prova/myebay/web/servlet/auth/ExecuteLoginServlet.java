@@ -20,14 +20,11 @@ public class ExecuteLoginServlet extends HttpServlet {
     public ExecuteLoginServlet() {
         super();
     }
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		throw new UnsupportedOperationException("Invocation of doGet not allowed for this Servlet");
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String loginInput = request.getParameter("inputUsername");
 		String passwordInput = request.getParameter("inputPassword");
+		String idAnnuncio = request.getParameter("idAnnuncio"); 
 
 		if (StringUtils.isEmpty(loginInput) || StringUtils.isEmpty(passwordInput)) {
 			request.setAttribute("errorMessage", "E' necessario riempire tutti i campi.");
@@ -44,8 +41,13 @@ public class ExecuteLoginServlet extends HttpServlet {
 				destinazione = "login.jsp";
 			} else {
 				request.getSession().setAttribute("userInfo", utenteInstance);
-				request.setAttribute("mappaCategorieConSelezionati_attr", UtilityForm.buildCheckedCategoriesForPages(MyServiceFactory.getCategoriaServiceInstance().listAll(), null));
-				destinazione = "home.jsp";
+				if(idAnnuncio == null) {
+					request.setAttribute("mappaCategorieConSelezionati_attr", UtilityForm.buildCheckedCategoriesForPages(MyServiceFactory.getCategoriaServiceInstance().listAll(), null));
+					destinazione = "home.jsp";
+				} else {
+					request.setAttribute("idAnnuncio", idAnnuncio);
+					destinazione = "/ExecuteVisualizzaAnnuncioServlet";
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

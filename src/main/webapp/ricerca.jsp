@@ -58,7 +58,6 @@
 				      <div class="container-fluid py-5">
 				        <h1 class="display-5 fw-bold">Benvenuto su MyEbay</h1>
 				        <p class="col-md-8 fs-4">Cerca l'annuncio che fa per te! </p>
-				        <a class="col-md-8 fs-4" href="${pageContext.request.contextPath}/PrepareRegisterServlet">Non sei ancora registrato? Registrati</a>
 				      </div>
 			   
 			    

@@ -16,6 +16,7 @@ public class PrepareLoginServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("idAnnuncio", request.getParameter("idAnnuncio"));
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 }

@@ -22,9 +22,9 @@ public class ExecuteVisualizzaAnnuncioServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String idAnnuncioParam = request.getParameter("idAnnuncio");
+		String idAnnuncio = request.getParameter("idAnnuncio");
 
-		if (!NumberUtils.isCreatable(idAnnuncioParam)) {
+		if (!NumberUtils.isCreatable(idAnnuncio)) {
 			// qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore: non esiste un annuncio con questo id");
 			request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -32,7 +32,7 @@ public class ExecuteVisualizzaAnnuncioServlet extends HttpServlet {
 		}
 
 		try {
-			Annuncio annuncioInstance = MyServiceFactory.getAnnuncioServiceInstance().caricaAnnuncioSingoloConCategorieECreatore(Long.parseLong(idAnnuncioParam));
+			Annuncio annuncioInstance = MyServiceFactory.getAnnuncioServiceInstance().caricaAnnuncioSingoloConCategorieECreatore(Long.parseLong(idAnnuncio));
 
 			if (annuncioInstance == null) {
 				request.setAttribute("errorMessage", "Elemento non trovato.");
@@ -47,8 +47,38 @@ public class ExecuteVisualizzaAnnuncioServlet extends HttpServlet {
 			request.getRequestDispatcher("annuncio/list.jsp").forward(request, response);
 			return;
 		}
-		
 		request.getRequestDispatcher("annuncio/show.jsp").forward(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String idAnnuncio = request.getParameter("idAnnuncio");
+
+		if (!NumberUtils.isCreatable(idAnnuncio)) {
+			// qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo
+			request.setAttribute("errorMessage", "Attenzione si è verificato un errore: non esiste un annuncio con questo id");
+			request.getRequestDispatcher("error.jsp").forward(request, response);
+			return;
+		}
+
+		try {
+			Annuncio annuncioInstance = MyServiceFactory.getAnnuncioServiceInstance().caricaAnnuncioSingoloConCategorieECreatore(Long.parseLong(idAnnuncio));
+
+			if (annuncioInstance == null) {
+				request.setAttribute("errorMessage", "Elemento non trovato.");
+				request.getRequestDispatcher("annuncio/ExecuteListAnnunciServlet?operationResult=NOT_FOUND").forward(request, response);
+				return;
+			}
+			request.setAttribute("visualizza_annuncio_attr", annuncioInstance);
+		} catch (Exception e) {
+			// qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Attenzione si è verificato un errore: non è stato possibile caricare le informazioni dell'annuncio");
+			request.getRequestDispatcher("annuncio/list.jsp").forward(request, response);
+			return;
+		}
+		request.getRequestDispatcher("annuncio/show.jsp").forward(request, response);
+	}
+
 
 }
